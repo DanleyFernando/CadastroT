@@ -80,11 +80,11 @@ export class AppComponent {
   }
 
   buscarEndereco() {
-    // Remove caracteres não numéricos do CEP
+   
     const cepSemHifen = this.employee.cep.replace(/[^0-9]/g, '');
   
     if (cepSemHifen.length !== 8) {
-      // Limpa os campos se o CEP não for válido
+      
       this.employee.endereco = '';
       this.employee.bairro = '';
       this.employee.cidade = '';
@@ -92,7 +92,7 @@ export class AppComponent {
     }
   
     this.cepService.buscar(cepSemHifen).subscribe(data => {
-      console.log('Resposta da API:', data);  // Verifique se os dados estão corretos
+      console.log('Resposta da API:', data); 
       if (data) {
         this.employee.endereco = data.logradouro || '';
         this.employee.bairro = data.bairro || '';

@@ -1,139 +1,17 @@
 <div class="container">
   <div class="row">
-    <!-- Seção de Detalhes do Funcionário (oculta ou visível baseado na propriedade showForm) -->
-    <div *ngIf="showForm" class="col-md-4">
-      <h3>Cadastro</h3>
-      <div class="outerDiv">
-        <!-- TipoPessoa -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>TipoPessoa</label>
-          </div>
-          <div class="col-md-8">
-            <select class="form-control" [(ngModel)]="employee.tipopessoa">
-              <option>PessoaJuridica</option>
-              <option>PessoaFisica</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- CPFCPNJ -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>CPF/CNPJ</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.cpf_cnpj"/>
-          </div>
-        </div>
-
-        <!-- Nome -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Nome</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.nome"/>
-          </div>
-        </div>
-
-        <!-- NomeFantasia -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Nome Fantasia</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.nomefantasia"/>
-          </div>
-        </div>
-
-        <!-- CEP -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>CEP</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.cep" (blur)="buscarEndereco()"/>
-          </div>
-        </div>
-
-        <!-- ENDEREÇO -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Endereço</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.endereco"/>
-          </div>
-        </div>
-
-        <!-- BAIRRO -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Bairro</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.bairro"/>
-          </div>
-        </div>
-
-        <!-- CIDADE -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Cidade</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.cidade"/>
-          </div>
-        </div>
-
-        <!-- Telefone -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Telefone</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.telefone"/>
-          </div>
-        </div>
-
-        <!-- Email -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label>Email</label>
-          </div>
-          <div class="col-md-8">
-            <input type="text" class="form-control" [(ngModel)]="employee.email"/>
-          </div>
-        </div>
-
-        <!-- Botão Salvar -->
-        <div class="row">
-          <div class="col-md-12 text-end">
-            <button type="button" class="btn btn-primary" (click)="saveEmployee()">Save</button>
-          </div>
-        </div>
-      </div>
+    <!-- Botão Novo e Limpar Tabela -->
+    <div class="col-md-12 mb-3 text-start">
+      <button type="button" class="btn btn-primary" (click)="toggleForm()">
+        {{ showForm ? 'Cancelar' : 'Novo' }}
+      </button>
+      <button *ngIf="!showForm" type="button" class="btn btn-danger ms-2" (click)="clearEmployees()">
+        Limpar Tabela
+      </button>
     </div>
 
-    <!-- Seção de Lista de Funcionários -->
-    <div class="col-md-8">
+    <div *ngIf="!showForm" class="col-md-8">
       <h3>Cadastro</h3>
-
-      <!-- Botões Novo e Limpar Tabela -->
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <div class="text-start">
-            <button type="button" class="btn btn-primary" (click)="toggleForm()">
-              {{ showForm ? 'Cancelar' : 'Novo' }}
-            </button>
-            <button *ngIf="!showForm" type="button" class="btn btn-danger ms-2" (click)="clearEmployees()">
-              Limpar Tabela
-            </button>
-          </div>
-        </div>
-      </div>
-
       <div class="outerDiv">
         <div class="row mb-3">
           <div class="col-md-12">
@@ -155,6 +33,110 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showForm" class="col-md-4">
+      <h3>Cadastro</h3>
+      <div class="outerDiv">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>TipoPessoa</label>
+          </div>
+          <div class="col-md-8">
+            <select class="form-control" [(ngModel)]="employee.tipopessoa">
+              <option>PessoaJuridica</option>
+              <option>PessoaFisica</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>CPF/CNPJ</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.cpf_cnpj"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Nome</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.nome"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Nome Fantasia</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.nomefantasia"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>CEP</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.cep" (blur)="buscarEndereco()"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Endereço</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.endereco"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Bairro</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.bairro"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Cidade</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.cidade"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Telefone</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.telefone"/>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Email</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" [(ngModel)]="employee.email"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-end">
+            <button type="button" class="btn btn-primary" (click)="saveEmployee()">Save</button>
           </div>
         </div>
       </div>
